@@ -30,21 +30,15 @@ public:
                 pre ->right = curr ->right;
                 curr ->right = curr->left ; 
 
+                // remaining connection for left pointer of current node 
+                curr->left = NULL;
+
             }
             curr = curr->right ;
 
         }
 
-        // make all the left pointers null 
-        TreeNode* temp = root ; 
-
-        while (temp ){
-            temp->left = NULL ; 
-            temp = temp ->right ;
-        }
-        
-
-
+       
         
     }
 };
