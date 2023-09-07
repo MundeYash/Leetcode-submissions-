@@ -23,6 +23,17 @@ TreeNode* minValue (TreeNode* root ){
     return root ;
 
 }
+// function for deleting a particular / node->data value in the binary search tree 
+TreeNode* maxValue (TreeNode* root ){
+    if (!root )return NULL ;
+
+    while (root->right){
+        root= root->right ;
+    }
+    return root ;
+
+}
+
 
 
 
@@ -60,10 +71,16 @@ TreeNode* minValue (TreeNode* root ){
         // 2child exits (both left and right ){either find maximum from left subtree and replace it with root  or find minimum element form the right and replace it with root , do recursvive call}
 
         if (root ->left != NULL and root ->right != NULL ) {
-            int mini = minValue (root ->right )->val ;// gives minimum value from the right 
-            root ->val = mini ; // add min value to the root value 
-            root ->right = deleteNode(root->right , mini);
+            // int mini = minValue (root ->right )->val ;// gives minimum value from the right 
+            // root ->val = mini ; // add min value to the root value 
+            // root ->right = deleteNode(root->right , mini);
+            // return root ;
+
+            int maxi = maxValue (root ->left )->val ; // give the maximum value from the left subtree 
+            root ->val = maxi ; // add max value to the root value 
+            root ->left = deleteNode(root->left , maxi ) ;
             return root ;
+
 
         }
 
