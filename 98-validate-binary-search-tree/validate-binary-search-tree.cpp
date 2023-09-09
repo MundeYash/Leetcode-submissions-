@@ -12,31 +12,28 @@
 class Solution {
 public:
 
-    void inorder (TreeNode* root  ,vector<int>&ans ){
-        // baase case 
-        if (!root )return ; 
-        // left check 
-        inorder (root ->left , ans ) ; 
-        // store the ans 
-        ans.push_back(root->val  ) ; 
-        inorder (root ->right , ans ) ;
+bool check(TreeNode* root , long long  mini  , long long  maxi ){
+    // base case    
+    if (!root )return true ; 
+
+    if (root ->val > mini and root ->val < maxi ){
+        bool leftCheck = check (root->left , mini , root ->val ) ; 
+
+        bool rightCheck = check(root ->right , root ->val , maxi);
+        return leftCheck && rightCheck ; 
     }
+    else{
+        return false;
+    }
+}
     bool isValidBST(TreeNode* root) {
-        if (!root )return true ;
-        // aproach : inroder traversal + sorted check 
-        // time : O(n) + O(n) , space : O(n)
+        // time : O(n) , space : O(1) 
 
-        vector<int> ans ; 
-        inorder (root , ans  ) ; 
+        // concept : range checking and recursion 
+        if (!root )return true ; 
 
-        // step2 : check whether the inorder traversal is sorted or not 
-        int n = ans.size() ;
-        for (int i=0 ;i<n-1 ;i++ ){
-            if (ans[i]>= ans[i+1]){
-                return false ;
-            }
-        }
-        return true ;
-        
+        return check(root, LLONG_MIN, LLONG_MAX ) ;// minimum value and maximum value 
+
+
     }
 };
