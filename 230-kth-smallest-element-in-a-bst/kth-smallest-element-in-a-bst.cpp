@@ -11,21 +11,24 @@
  */
 class Solution {
 public:
-void inorder(TreeNode* root , vector<int>&ans ){
-    if (!root )return  ; 
+    int solve(TreeNode* root , int &k ){
+        if (!root )return -1 ; 
 
-    // recursive case 
-    inorder (root->left , ans ) ; 
-    ans.push_back(root ->val  ) ; 
-    inorder(root ->right , ans  ) ;
-    return ;
-}
+        // move in the left to get smaller value 
+      int leftCheck =   solve(root ->left , k) ; 
+      if (leftCheck != -1)return leftCheck ; 
+
+      k-- ; 
+      if (k==0 ){
+          return root ->val ;
+      }
+      return solve(root ->right , k );
+    }
     int kthSmallest(TreeNode* root, int k) {
-        // concept  : store the inorder and return kth largest element 
-        vector<int> ans ; 
-        inorder (root , ans ) ;
-        return ans[k-1];
+        // concept : counter method + comparison , time : O(log n ) , space  :O(n) recursive stack space 
 
+        if (!root )return -1 ; 
+        return solve(root , k ) ;
         
     }
 };
