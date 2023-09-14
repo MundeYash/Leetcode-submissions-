@@ -27,6 +27,7 @@ void check(TreeNode* root  , TreeNode* target , TreeNode* &ans ){
 
 }
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
+        //search a node in binary tree , Time : O(n ) , space : O(h->recursive stack space  )
          TreeNode* ans = NULL ; 
          check(cloned , target , ans ) ;
 
