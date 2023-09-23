@@ -4,19 +4,16 @@ public:
         int n = nums.size() ; 
         int ans =1 ;
 
-        for (int i=0 ;i< n;i++){
+       // solving using the priority queue 
+       priority_queue<int > pq(nums.begin() , nums.end());
 
-            for (int j=0 ;j<n ;j++){
-                if (i!=j ){
-                    int value = (nums[i]-1 )* (nums[j]-1);
+       int first = pq.top() - 1;
+       pq.pop();
+       int second = pq.top() -1 ; 
+       pq.pop();
+       ans = first * second ; 
 
-                    if (value >ans ){
-                        ans = value ;
-                    }
 
-                }
-            }
-        }
 
         if (ans ==1 )return 0 ; 
         return ans ;
