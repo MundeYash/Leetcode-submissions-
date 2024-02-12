@@ -14,8 +14,9 @@ public:
     int maxDepth(TreeNode* root) {
         // concept : any traversal + condition  check 
         if (!root )return 0 ; 
-        
-        return max(maxDepth(root->left ) , maxDepth(root->right )) + 1; 
+        int leftAns = maxDepth (root->left ) ; 
+        int rightAns = maxDepth (root ->right ) ; 
+        return max(leftAns ,rightAns )  + 1; 
 
 
     }
