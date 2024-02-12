@@ -11,21 +11,28 @@
  */
 class Solution {
 public:
-    int height (TreeNode* root ){
-        if (!root )return 0 ; 
+    pair<int , int > fastDia (TreeNode* root ){
+        pair<int , int> ans; 
+        if (!root ){
+            ans.first = 0  ; 
+            ans.second =  0 ; 
+            return ans;
 
-       
-        return max(height(root->left) , height(root ->right )) + 1;
+        }
+
+        //recursive 
+        pair<int , int > leftAns = fastDia(root->left ); 
+        pair<int , int > rightAns  = fastDia(root ->right );
+        int op1 = leftAns.first ; 
+        int op2 = rightAns.first ; 
+        int op3 = (leftAns.second + rightAns.second ) ; 
+        ans.first = max(op1 , max(op2 , op3 )) ; 
+        ans.second = max(leftAns.second , rightAns.second ) + 1 ; 
+        return ans;
     }
-  
     int diameterOfBinaryTree(TreeNode* root) {
-        if (root == NULL )return 0 ;
-        int op1 = diameterOfBinaryTree(root ->left ) ; 
-        int op2 = diameterOfBinaryTree(root->right ) ;
-        int op3 = (height(root->left ) + height(root->right ))  ; 
-        int ans = max(op1 , max(op2, op3 )); 
-       return  ans ;
-        
-        
+        //Optimsed Approach : finding the diameter in the optimsed way int O(n) time complexity 
+        return fastDia(root ).first ; 
+
     }
 };
