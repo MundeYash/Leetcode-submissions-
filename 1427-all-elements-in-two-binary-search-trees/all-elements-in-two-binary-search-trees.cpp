@@ -11,22 +11,21 @@
  */
 class Solution {
 public:
-
-void inorder(TreeNode* root , vector<int>&in ){
-    if (!root)return ; 
- 
-    inorder (root ->left , in ) ; 
-       in.push_back(root->val) ; 
-    inorder(root->right , in ) ; 
-    
-}
+    void inorder(TreeNode* root , vector<int>&ans ){
+        if (!root ){
+            return ;
+        }
+        inorder(root->left , ans ); 
+        ans.push_back(root->val ); 
+        inorder(root->right ,ans ); 
+    }
     vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
-        //find inorder of both and sort them 
-        vector<int> ans ; 
-        inorder(root1 ,ans ) ; 
-        inorder(root2, ans ) ; 
-        sort(ans.begin() , ans.end()) ; 
-        return ans ;
+     //find  inorder traversal of both tree ,  store and sort them 
+     vector<int> ans; 
+     inorder(root1,ans); 
+     inorder(root2, ans ); 
+     sort(ans.begin()  , ans.end()); 
+     return ans;
 
     }
 };
