@@ -14,7 +14,7 @@ public:
     int findBottomLeftValue(TreeNode* root) {
         // highest or last  level leftmost value 
 
-        vector<vector<int>> ans ; 
+ 
         if (!root )return -1 ; 
 
         //level order traverasl format 
