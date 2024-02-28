@@ -29,23 +29,25 @@ public:
             for (int i=0 ;i<n ;i++){
                 TreeNode* frontNode = q.front(); 
                 q.pop(); 
-                temp.push_back(frontNode->val);
+                // temp.push_back(frontNode->val);
+                sol = frontNode->val;
 
 
+                 if (frontNode->right ){
+                    q.push(frontNode->right );
+                }
                 if (frontNode->left ){
                     q.push(frontNode->left );
                 }
 
-                if (frontNode->right ){
-                    q.push(frontNode->right );
-                }
+               
             }
 
             // after completion of one level 
 
-            if (temp.size()!=0 ){
-                sol = temp[0];
-            }
+            // if (temp.size()!=0 ){
+            //     sol = temp[0];
+            // }
             
         }
 
