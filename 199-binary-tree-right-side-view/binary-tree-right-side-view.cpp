@@ -16,33 +16,34 @@ public:
 
             if (!root )return ans; 
             
-            map<int ,int> nodes ; // mapping of level number with rightmost node value 
-            queue<pair<TreeNode*, int > > q ; 
-            q.push(make_pair(root, 0)); 
+           
+           queue<TreeNode*> q; 
+           q.push(root ); 
 
-            while (!q.empty()){
-                pair<TreeNode*,int > frontValue = q.front() ; 
-                q.pop(); 
+           while(!q.empty()){
+                int  n = q.size(); 
+                int value = INT_MIN ;
+                for (int i=0 ;i<n ;i++ ){
+                    TreeNode* frontNode = q.front(); 
+                    q.pop(); 
 
-                TreeNode* frontNode = frontValue.first ; 
-                int level = frontValue.second ; 
+                    value = frontNode->val;
 
-                nodes[level] = frontNode->val ;
+                    if (frontNode->left ){
+                        q.push(frontNode->left );
+                    }
 
-                if (frontNode->left ){
-                    q.push(make_pair(frontNode->left , level + 1));
+                    if (frontNode->right ){
+                        q.push(frontNode->right );
+                    }
                 }
 
-                if (frontNode->right ){
-                    q.push(make_pair(frontNode->right , level + 1  ));
+                if(value != INT_MIN){
+                    ans.push_back(value );
                 }
-            }
 
-            // after the traversal extract the values from the maps 
-
-            for (auto it: nodes ){
-                ans.push_back(it.second );
-            }
+            
+           }
 
             // sort(ans.begin() , ans.end());
             return ans;
