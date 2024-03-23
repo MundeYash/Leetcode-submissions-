@@ -10,26 +10,9 @@
  */
 class Solution {
 public:
-    void array2LL(ListNode* &head ,vector<int> arr ){
-         head = nullptr;
-        ListNode* current = nullptr;
-        
-        // Iterate through the array to create nodes and link them
-        for (int i = 0; i < arr.size(); ++i) {
-            ListNode* newNode = new ListNode(arr[i]);
-            
-            if (head == nullptr) {
-                head = newNode;
-                current = newNode;
-            } else {
-                current->next = newNode;
-                current = current->next;
-            }
-        }
-        
-        return ;
-    }
+   
     void reorderList(ListNode* head) {
+        // brute force Approach : store addresses and make connection with the pointers 
        if (!head || !head->next) return;
 
         vector<ListNode*> nodes;
