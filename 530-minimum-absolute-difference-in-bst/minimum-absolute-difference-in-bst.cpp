@@ -11,30 +11,39 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root , vector<int>&ans ){
-        if (!root )return ; 
-        inorder(root->left , ans ); 
-        ans.push_back(root->val); 
-        inorder(root->right , ans );
-    }
-    int getMinimumDifference(TreeNode* root) {
-        // Brute Force : time : O(n) ,space : O(n); 
-        if (!root )return 0 ; 
 
-        vector<int> ans; 
-
-        inorder(root , ans ); 
-        int mini = INT_MAX;
-
-        for (int i=0 ;i<ans.size()-1;i++ ){
-            int val = abs(ans[i]- ans[i+1]);
-
-            if (val<=mini)mini = val;
+    void  inorder(TreeNode* root , TreeNode* &prev , int &minDiff){
+        if (!root ){
+            return ; 
         }
 
-        if (mini == INT_MAX)return  0 ; 
-        return mini;
+        inorder(root->left , prev , minDiff );
 
+        // work 
+        if( prev != NULL ){
+            int value = abs(prev->val  - root->val);
+            minDiff = min(minDiff, value );
+        }
+
+        if (root != NULL ){
+            prev = root  ; 
+        }
+
+
+        inorder(root->right , prev , minDiff) ;
+
+
+    }
+    int getMinimumDifference(TreeNode* root) {
+        //Optimised Code : Time : O(n) , space :O(H)
+        int minDiff = INT_MAX ; 
+        TreeNode* prev  = NULL ; 
+
+        inorder(root , prev , minDiff); 
+
+        if (minDiff == INT_MAX )return 0 ; 
+
+        return minDiff ;
 
     }
 };
