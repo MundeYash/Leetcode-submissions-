@@ -1,20 +1,13 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
+        // Position Placement solution 
         int n = nums.size(); 
-        // negative method approach 
-        int ans =-1 ; 
 
-        for (int i=0 ;i<n ;i++ ){
-            int index = abs(nums[i]);
-            if (nums[index]<0){
-                ans = index ;
-            }
-
-            // update the index 
-            nums[index] *=-1;
+        while  (nums[0] != nums[nums[0]]){
+            swap(nums[0], nums[nums[0]]);
         }
 
-        return ans;
+        return nums[0];
     }
 };
