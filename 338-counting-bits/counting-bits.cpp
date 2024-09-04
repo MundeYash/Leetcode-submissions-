@@ -1,25 +1,23 @@
 class Solution {
 public:
-int setBits(int n ){
-    int count =0 ;
-    while (n>0 ){
-        int bit = (n&1 ) ;
-        if (bit == 1 ){
-            count ++  ; 
+    int countSetBit(int number ){
+        int count =0 ; 
+        while (number ){
+            if (number&1 ){
+                count ++ ;
+            }
+            number = number >> 1;
         }
-        n = n >> 1 ;
-
+        return count ;
     }
-     return count ;
-}
     vector<int> countBits(int n) {
-        vector<int > ans (n+1) ; 
-      
+        vector<int> ans (n+1);
+        ans[0]=0;
+        for (int i=1;i<=n ;i++ ){
+            ans[i] = countSetBit(i);
 
-        for (int i =0 ;i<=n ;i++){
-            ans[i] = setBits(i) ;
+
         }
-         return ans ;
-        
+        return ans;
     }
 };
