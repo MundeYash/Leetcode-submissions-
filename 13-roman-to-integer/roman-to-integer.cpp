@@ -1,7 +1,7 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        unordered_map<char, int> romanMap = {
+        unordered_map<char, int> mp = {
         {'I', 1},
         {'V', 5},
         {'X', 10},
@@ -11,19 +11,21 @@ public:
         {'M', 1000}
     };
     
-    int result = 0;
-
-    for (int i = 0; i < s.length(); i++) {
-        // If the current numeral is smaller than the next one, subtract it
-        if (i < s.length() - 1 && romanMap[s[i]] < romanMap[s[i + 1]]) {
-            result -= romanMap[s[i]];
+    int number = 0;
+    int n = s.size() ;
+    // last value will always be added ;
+    number+=mp[s[n-1]];
+    // previous smaller value concept : 
+    for (int i=s.size()-1 ;i>=1 ;i-- ){
+        if (mp[s[i-1] ]< mp[s[i]]){
+            number -= mp[s[i-1]];
         }
-        // Otherwise, add the value of the current numeral
-        else {
-            result += romanMap[s[i]];
+        else{
+            number += mp[s[i-1]];
         }
     }
+   
 
-    return result;
+    return number;
     }
 };
