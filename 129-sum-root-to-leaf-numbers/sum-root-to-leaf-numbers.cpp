@@ -11,38 +11,28 @@
  */
 class Solution {
 public:
-
-// array to number conversion 
-    int a2Value(vector<int> arr  ){
-       int n = arr.size(); 
-       int ans =0 ; 
-       for (int i=0 ;i<n ;i++ ){
-        ans += (arr[i] * pow(10,(n-i-1))); 
-       } 
-
-       return ans;
-    }
-// helper function for solve 
-
-    void solve(TreeNode* root , vector<int> path , int&ans ){
+    void solve(TreeNode* root , int number , int &ans ){
+        //base case
         if (!root )return ; 
-
-        path.push_back(root->val);
-        if(!root->left && !root ->right ){
-            // means one solution 
-            ans += a2Value (path  );
+        number = number *10 + (root->val ) ; 
+        if (root->left== NULL and root->right== NULL ){
+            // means leaf node , number is computed 
+            ans += number ; 
             return ;
         }
 
-        solve(root->left , path ,ans );
-        solve(root ->right , path , ans );
+        if (root->left!= NULL  ){
+            solve(root->left , number , ans ) ;
+        }
+        if (root ->right != NULL ){
+            solve(root->right , number , ans ) ;
+        }
     }
     int sumNumbers(TreeNode* root) {
-        if(!root )return 0 ; 
-
-        vector<int>path ; 
-        int ans =0  ; 
-        solve(root , path , ans ); 
+        // optimised way 
+        int ans = 0 ; 
+        int number =0 ; 
+        solve(root , number , ans );
         return ans;
     }
 };
