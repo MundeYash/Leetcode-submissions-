@@ -1,65 +1,55 @@
 class Solution {
 public:
     string customSortString(string order, string s) {
-        string ans ; 
+        // optimised self implementation 
+        /*we have to sort string s , according to indexes of order string */
+        int n = s.size() ; 
+        int m = order.size() ;
 
-        // step 1: creation of unordered map for storing the frequecies 
-        unordered_map<char , pair<int , int > > mp ; 
-        int n = order.size();// size of the string order : 
+        // step 1: create map to store string s ke (char , (firstIndex , count ))
+        unordered_map<char  ,pair<int , int>> mp; 
+        for (int i=0;i<n ;i++ ){
+            // first time occur character 
+           if ( mp.find(s[i])==mp.end()){
+                // store first index of that character
+                mp[s[i]].first = i ; 
 
-        // find the frequency of string s with the index of first occurence 
-        for (int i=0 ;s[i]!='\0'; i++ ){
-             
+           }
+           // update the count 
+           mp[s[i]].second ++ ;
+        }
+        string ans = "" ;
 
-           // if current character of string s is going to be  added to the map first time  than increase frequency and store the index of first occurence 
-            if (mp.find(s[i])== mp.end()){
-                mp[s[i]].first ++ ;
-                mp[s[i]].second = i ;
-            }
-            else{
+        for (int i=0;i<m ;i++ ){
+            char ch = order[i] ;
+           int count =  mp[ch].second ;
+           string temp = "" ; 
+           while (count -- ){
+            temp.push_back(ch);
+           }
+           ans += temp ;
+           mp.erase(ch);
 
-                // if f current character of string s is already added in the map  than just update increase frequency.
-                mp[s[i]].first ++ ;
-            }
         }
 
-
-    // step3 : add the character with their occurences to the string ans if they exists in the order string and simultaneously reduce the frequency 
-    vector<pair<int , char >> temp ;
-        for (int i=0 ;i<n ;i++ )
-        {
-            if (mp.find(order[i]) != mp.end()){
-                // means exists 
-                int k = mp[order[i]].first ;
-                while (k--){
-                    ans += order[i];
-                }
-                mp[order[i]].first =0;
-
-            } 
-            
-        }
-
+        // work for remaining character of s string 
+        vector<pair<int , string >> arr   ; 
         for (auto it: mp ){
-            if (it.second.first !=0 ){
-                
-                // if does not exists 
-                temp.push_back(make_pair(it.second.second , it.first ));
-
-            
+            char ch = it.first;
+            int index = it.second.first ; 
+            int count = it.second.second ; 
+            string temp ="";
+            while (count -- ){
+                temp.push_back(ch);
             }
+            arr.push_back(make_pair(index , temp));
         }
-        sort(temp.begin() , temp.end()) ;
-        for (int i=0 ;i<temp.size(); i++ ){
-            char ch = temp[i].second ;
-            int k =mp[ch].first ;
-            while ( k--){
-                ans += ch ;
-            }
-            mp[ch].first =0 ;
+
+        sort(arr.begin(),arr.end()) ;
+        for (int i=0 ;i<arr.size();i++){
+            ans += arr[i].second ;
         }
         return ans;
 
-        // return "";  
     }
 };
